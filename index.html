@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Flappy Bird</title>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="pipe"></div>
+      <div class="lid"></div>
+      <div class="bird"></div>
+      <div class="score">Score 0</div>
+      <div class="modal" style="display: none">
+        <div class="content">
+          <h1 class="title">Game Over</h1>
+          <h3 class="final-score">Score 0</h3>
+          <button>Play Again ?</button>
+        </div>
+        <div class="black-bg"></div>
+      </div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

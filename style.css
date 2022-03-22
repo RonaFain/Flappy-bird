@@ -41,12 +41,6 @@ body {
   top: -500px;
 }
 
-/* .pipe,
-.lid {
-  left: 40vw;
-  animation: moveAnimation 2s infinite linear;
-} */
-
 .bird {
   width: 40px;
   height: 30px;
@@ -56,6 +50,16 @@ body {
   position: absolute;
   top: 20vh;
   left: 20vw;
+}
+
+.move-up {
+  animation: rotateUp .3s;
+  animation-fill-mode: forwards;
+}
+
+.move-down {
+  animation: rotateDown .3s;
+  animation-fill-mode: forwards;
 }
 
 .score {
@@ -110,5 +114,23 @@ body {
   }
   100% {
     left: -50px;
+  }
+}
+
+@keyframes rotateUp {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-35deg);
+  }
+}
+
+@keyframes rotateDown {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(35deg);
   }
 }

@@ -1,6 +1,7 @@
 let gElGame, gElPipe, gElLid, gElBird, gElScore, gElModal
 let isGameOver = false
 let isOnMove = false
+let gTotalScore = 0
 
 // initGame()
 
@@ -76,6 +77,7 @@ function birdMove() {
 
 function changeGameState({ direction, diff }) {
   handleAnimation(direction)
+  handleCollision()
   handlePosition(diff)
 }
 
@@ -90,22 +92,41 @@ function handleAnimation(direction) {
 }
 
 function handlePosition(diff) {
-    const currTop = parseInt(getComputedStyle(gElBird).top)
-    const newTop = currTop + diff
+  const currTop = parseInt(getComputedStyle(gElBird).top)
+  const newTop = currTop + diff
 
-    if(newTop < 0) return
-    if(newTop > window.innerHeight) return gameOver()
+  if (newTop < 0) return
+  if (newTop > window.innerHeight) return gameOver()
 
-    gElBird.style.top = `${newTop}px`
+  gElBird.style.top = `${newTop}px`
+}
+
+function handleCollision() {
+  const isCollisionPipe = isCollision(gElBird, gElPipe)
+  const isCollisionLid = isCollision(gElBird, gElLid, { y1: -46, y2: 47 })
+
+  if (isCollisionPipe && !isCollisionLid) {
+    renderScore()
+    return gameOver()
+  } else if (isCollisionLid) {
+    gTotalScore++
+    renderScore()
+    if(isGameOver) return
+  }
 }
 
 function setGravity() {
-    setInterval(() => {
-        if(isOnMove) return
-        changeGameState({direction: 'down', diff: 5})
-    },20)
+  setInterval(() => {
+    if (isOnMove || isGameOver) return
+    changeGameState({ direction: 'down', diff: 5 })
+  }, 20)
 }
 
 function gameOver() {
+  console.log('Game over!!')
+}
 
+function renderScore() {
+  gElScore.innerText = `Score: ${gTotalScore.toString()}`
+  gElModal.querySelector('.final-score').innerText = gElScore.innerText
 }

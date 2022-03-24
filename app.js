@@ -23,11 +23,13 @@ function getElements() {
 }
 
 function setAnimation() {
-  const sec = 2
-  const moveAnimation = `moveAnimation ${sec}s infinite linear`
+  const moveAnimation = `moveAnimation 2s infinite linear`
+  const bgAnimation = `bgAnimation 5s infinite linear`
 
   gElPipe.style.animation = moveAnimation
   gElLid.style.animation = moveAnimation
+
+  gElGame.style.animation = bgAnimation
 }
 
 function setLids() {
@@ -58,6 +60,16 @@ function setEventListeners() {
       birdMove()
     }
   }
+
+  gElModal.querySelector('button').addEventListener('click', () => {
+    isGameOver = false
+    closeModal()
+    setBirdPosition()
+    setGravity()
+    setAnimation()
+    gTotalScore = 0
+    renderScore()
+  })
 }
 
 function birdMove() {
@@ -111,7 +123,7 @@ function handleCollision() {
   } else if (isCollisionLid) {
     gTotalScore++
     renderScore()
-    if(isGameOver) return
+    if (isGameOver) return
   }
 }
 
@@ -124,6 +136,32 @@ function setGravity() {
 
 function gameOver() {
   console.log('Game over!!')
+  isGameOver = true
+  openModal()
+  stopAnimation()
+}
+
+function openModal() {
+  gElModal.style.display = 'block'
+}
+
+function closeModal() {
+  gElModal.style.display = 'none'
+}
+
+function stopAnimation() {
+  const pipePosition = gElPipe.getBoundingClientRect().x
+  gElPipe.style.animation = ''
+  gElLid.style.animation = ''
+  gElPipe.style.left = `${pipePosition}px`
+  gElLid.style.left = `${pipePosition}px`
+
+  gElGame.style.animation = ''
+}
+
+function setBirdPosition() {
+  gElBird.style.top = '30vh'
+  gElBird.style.left = '25vw'
 }
 
 function renderScore() {

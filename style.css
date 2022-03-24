@@ -53,12 +53,12 @@ body {
 }
 
 .move-up {
-  animation: rotateUp .3s;
+  animation: rotateUp 0.3s;
   animation-fill-mode: forwards;
 }
 
 .move-down {
-  animation: rotateDown .3s;
+  animation: rotateDown 0.3s;
   animation-fill-mode: forwards;
 }
 
@@ -114,6 +114,15 @@ body {
   }
   100% {
     left: -50px;
+  }
+}
+
+@keyframes bgAnimation {
+  0% {
+    background-position-x: 100vw;
+  }
+  100% {
+    background-position-x: 0;
   }
 }
 
